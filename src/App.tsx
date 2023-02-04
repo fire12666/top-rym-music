@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useRef, useState } from 'react';
 import './App.css';
+import Home from './components/Home';
+import YearlyTop from './components/YearlyTop';
+import { useInView } from 'react-intersection-observer';
+import YearNavigation from './components/YearNavigation';
+
 
 function App() {
+  const componentRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [activeYear, setActiveYear] = useState<number | null>(null);
+  const [preventYearChange, setPreventYearChange] = useState<boolean>(false);
+
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 0,
+  });
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div ref={ref}></div>
+      <Home />
+      <YearNavigation components={componentRefs} show={!inView} activeYear={activeYear} setActiveYear={setActiveYear}
+        setPreventYearChange={setPreventYearChange}/>
+      <YearlyTop components={componentRefs} setActiveYear={setActiveYear} preventYearChange={preventYearChange}/>
     </div>
   );
 }

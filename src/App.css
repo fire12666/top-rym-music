@@ -1,38 +1,86 @@
+:root {
+  --gradient: linear-gradient(45deg, red, #042e3b);
+}
+
 .App {
-  text-align: center;
+  position: relative;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  width: 100%;
+  background-color: #042e3b;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App::-webkit-scrollbar {
+  display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.block {
+  height: 100vh;
   display: flex;
+  color: #fff;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: large;
+  font-family: 'Lato, sans-serif';
+  font-weight: 100;
+  scroll-snap-align: start;
 }
 
-.App-link {
-  color: #61dafb;
+.hover-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  background-image: var(--gradient);
+  background-size: 0;
+  transition: 1s;
+  animation: Animation 5s ease infinite alternate-reverse;
+  animation-iteration-count: infinite;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.cover-color {
+  opacity: 0;
+}
+
+.App,
+.block {
+  margin: 0 auto;
+}
+
+.block-animated {
+  height: 100vh;
+  display: flex;
+  background-size: 400% 400%;
+  color: #fff;
+  flex-direction: column;
+  font-size: large;
+  font-family: 'Lato, sans-serif';
+  font-weight: 100;
+  scroll-snap-align: start;
+  background-position: -400%;
+  -webkit-animation: Animation 5s ease infinite;
+  -moz-animation: Animation 5s ease infinite;
+  animation: Animation 5s ease infinite;
+}
+
+@keyframes Animation {
+  0% {
+    background-position: right;
+    background-size: 400% 400%;
   }
-  to {
-    transform: rotate(360deg);
+  33% {
+    background-position: left;
+    background-size: 100% 400%;
+  }
+  66% {
+    background-position: right;
+    background-size: 400% 400%;
+  }
+  100% {
+    background-position: left;
+    background-size: 300% 200%;
   }
 }
